@@ -18,10 +18,10 @@ import reactor.core.publisher.Mono;
 
 public class UserWebClient {
 
-	private final static String path = UserRouter.path;
-	private final static String pathOne = UserRouter.pathOne.replace("id", "0");
-	private final static String pathExample = UserRouter.pathExample; 
-	private final static String pathOneExample = UserRouter.pathOneExample;		
+	public final static String path = "/user";
+	public final static String pathOne = path + "/{0}";
+	public final static String pathExample = path + "/find";
+	public final static String pathOneExample = path + "/find-one";
 	
 	private WebClient client = WebClient.create("http://localhost:8080");
 
