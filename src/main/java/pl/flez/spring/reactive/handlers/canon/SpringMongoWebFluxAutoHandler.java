@@ -10,15 +10,15 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Mono;
 
-public abstract class SpringMongoWebFluxAutoHandler<T> {
+public abstract class SpringMongoWebFluxAutoHandler<T,ID> {
 
-	private final ReactiveMongoRepository<T, ObjectId> repository;
+	private final ReactiveMongoRepository<T, ID> repository;
 	
 	private final Class<T> reference;
 	
 	//private final ParameterizedTypeReference<T> reference = new ParameterizedTypeReference<T>() {}; // - REST ok , WebClient returns LinkedHashMap
 	
-	public SpringMongoWebFluxAutoHandler(ReactiveMongoRepository<T, ObjectId> repository, Class<T> reference) {
+	public SpringMongoWebFluxAutoHandler(ReactiveMongoRepository<T, ID> repository, Class<T> reference) {
 		this.repository = repository;
 		this.reference = reference;
 	}
@@ -29,17 +29,15 @@ public abstract class SpringMongoWebFluxAutoHandler<T> {
 	}
 
 	public Mono<ServerResponse> findById(ServerRequest request) {
-		ObjectId id = new ObjectId(request.pathVariable("id"));
+		ID id = (ID)request.pathVariable("id");	
 		return repository.findById(id).flatMap(
 				obj -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(obj)))
 				.switchIfEmpty(ServerResponse.notFound().build());
 	}
 
 	public Mono<ServerResponse> deleteById(ServerRequest request) {
-		ObjectId id = new ObjectId(request.pathVariable("id"));		
-		return repository.deleteById(id).flatMap(
-				obj -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(obj)))
-				.switchIfEmpty(ServerResponse.notFound().build());
+		ID id = (ID)request.pathVariable("id");		
+		return repository.deleteById(id).flatMap(obj -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(obj)));
 	}
 	
 	public Mono<ServerResponse> findAll(ServerRequest request) {
@@ -48,7 +46,7 @@ public abstract class SpringMongoWebFluxAutoHandler<T> {
 
 	public Mono<ServerResponse> findAllExample(ServerRequest request) {
 		Mono<T> body = request.bodyToMono(reference);
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(body.flatMap(b->repository.findOne(Example.of(b))), reference);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(body.flatMapMany(b-> repository.findAll(Example.of(b))), reference);
 	}
 	
 	public Mono<ServerResponse> findOneExample(ServerRequest request) {

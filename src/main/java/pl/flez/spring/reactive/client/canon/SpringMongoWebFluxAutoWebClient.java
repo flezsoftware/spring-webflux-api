@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public abstract class SpringMongoWebFluxAutoWebClient<T> {
+public abstract class SpringMongoWebFluxAutoWebClient<T,ID> {
 	private final String path;
 	private final String pathOne;
 	private final String pathExample;
@@ -25,59 +25,38 @@ public abstract class SpringMongoWebFluxAutoWebClient<T> {
 	public SpringMongoWebFluxAutoWebClient(String host, String path, Class<T> clazz) {
 		this.client = WebClient.create(host);		
 		this.path = path;
-		this.pathOne = path + "/{id}";
+		this.pathOne = path + "/{0}";
 		this.pathExample = path + "/find";
 		this.pathOneExample = path + "/find-one";
 		this.clazz = clazz;
 	}
-
-	public void testClient() throws InstantiationException, IllegalAccessException {
-		T object =  clazz.newInstance();	
-		object = post(path,object);		
-
-		
-		object = post(pathOneExample, object);
-		
-		
-		Flux<T> all = getAll(path);
-		List<T> lst =  all.toStream().collect(Collectors.toList());
-		System.out.println("findAll() size " + lst.size());
-		
-
-		all = getAllExample(object, pathExample);
-		lst =  all.toStream().collect(Collectors.toList());
-		System.out.println("findAll(Example<s>) size " + lst.size());		
-		
-	
-		
-		all = getAll(path);
-		lst =  all.toStream().collect(Collectors.toList());
-		System.out.println("findAll() size " + lst.size());
-		
-	}
-
-	public T post(String path,T object) {	
+	public T post(T object) {	
 		Mono<ClientResponse> result = client.post().uri(path).body(BodyInserters.fromObject(object)).exchange();	
 		return result.flatMap(res->res.bodyToMono(clazz)).block();				
 	}
 	
-	public Flux<T> getAll(String path) {
+	public Flux<T> getAll() {
 		 return client.get().uri(path).accept(MediaType.APPLICATION_JSON).retrieve().bodyToFlux(clazz);
 	}
 	
-	public Flux<T> getAllExample(T object,String path) {
-		 return client.post().uri(path).body(BodyInserters.fromObject(object)).accept(MediaType.APPLICATION_JSON).retrieve().bodyToFlux(clazz);
-	}	
-	
-	public T getById(String path,ObjectId id) {
-		 String url =  MessageFormat.format(path, new Object[] {id.toString()});
+	public T getById(ID id) {
+		 String url =  MessageFormat.format(pathOne, new Object[] {id});
 		 Mono<ClientResponse> result = client.get().uri(url).accept(MediaType.APPLICATION_JSON).exchange();
 		 return result.flatMap(res->res.bodyToMono(clazz)).block();	
 	}
 	
-	public Void delete(String path,ObjectId id) {
-		 String url =  MessageFormat.format(path, new Object[] {id.toString()});
+	public Void delete(ID id) {
+		 String url =  MessageFormat.format(pathOne, new Object[] {id});
 		 Mono<ClientResponse> result = client.delete().uri(url).accept(MediaType.APPLICATION_JSON).exchange();
 		 return result.flatMap(res->res.bodyToMono(Void.class)).block();	
 	}
+	
+	public T findOneExample(T object) {	
+		Mono<ClientResponse> result = client.post().uri(pathOneExample).body(BodyInserters.fromObject(object)).exchange();	
+		return result.flatMap(res->res.bodyToMono(clazz)).block();				
+	}
+	
+	public Flux<T> getAllExample(T object) {
+		 return client.post().uri(pathExample).body(BodyInserters.fromObject(object)).accept(MediaType.APPLICATION_JSON).retrieve().bodyToFlux(clazz);
+	}	
 }

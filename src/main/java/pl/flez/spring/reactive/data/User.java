@@ -15,5 +15,23 @@ public class User extends Auditable {
 	private ObjectId id;	
 	private String name;
 	private String surname;
-	private String email;	
+	private String email;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}	
+	
 }

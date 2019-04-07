@@ -48,13 +48,15 @@ public class UserWebClient {
 		List<User> lst =  all.toStream().collect(Collectors.toList());
 		System.out.println("findAll() size " + lst.size());
 		
-		object.setName("Chujoszek");
+		delete(pathOne,object.getId());
+		System.out.println("delete " + object.getId());
+		
+		object.setId(null);
 		all = getAllExample(object, pathExample);
 		lst =  all.toStream().collect(Collectors.toList());
 		System.out.println("findAll(Example<s>) size " + lst.size());		
 		
-		delete(pathOne,object.getId());
-		System.out.println("delete " + object.getId());
+	
 		
 		all = getAll(path);
 		lst =  all.toStream().collect(Collectors.toList());

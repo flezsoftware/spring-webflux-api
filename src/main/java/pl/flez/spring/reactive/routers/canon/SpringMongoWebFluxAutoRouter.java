@@ -10,14 +10,14 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import pl.flez.spring.reactive.handlers.UserHandler;
 import pl.flez.spring.reactive.handlers.canon.SpringMongoWebFluxAutoHandler;
 
-public abstract class SpringMongoWebFluxAutoRouter<T> {
+public abstract class SpringMongoWebFluxAutoRouter<T,ID> {
 	private final String path;
 	private final String pathOne;
 	private final String pathExample;
 	private final String pathOneExample;
-	private final SpringMongoWebFluxAutoHandler<T> handler;
+	private final SpringMongoWebFluxAutoHandler<T,ID> handler;
 	
-	public SpringMongoWebFluxAutoRouter(SpringMongoWebFluxAutoHandler<T> handler, String path) {
+	public SpringMongoWebFluxAutoRouter(SpringMongoWebFluxAutoHandler<T,ID> handler, String path) {
 		this.handler = handler;
 		this.path = path;
 		this.pathOne = path + "/{id}";
@@ -33,8 +33,7 @@ public abstract class SpringMongoWebFluxAutoRouter<T> {
 		    .POST(path, handler::save) 	
 		    .DELETE(pathOne, handler::deleteById)		    
 		    .POST(pathExample, handler::findAllExample)
-		    .POST(pathOneExample, handler::findAllExample)
-		    //.add(otherRoute) 
+		    .POST(pathOneExample, handler::findOneExample)
 		    .build();
 	}
 }

@@ -19,7 +19,7 @@ public class JacksonConfiguration {
 	@Bean
 	public ObjectMapper objectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(Include.NON_NULL);
+		//mapper.setSerializationInclusion(Include.NON_NULL);
 	    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		mapper.registerModule(new JavaTimeModule());
 		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
