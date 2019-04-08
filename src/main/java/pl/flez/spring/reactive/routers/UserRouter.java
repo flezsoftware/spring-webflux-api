@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import pl.flez.spring.reactive.handlers.UserHandler;
 
-//@Configuration
+@Configuration
 public class UserRouter {
 //	@Bean
 //	public RouterFunction<ServerResponse> routeUser(UserHandler hander) {
@@ -28,13 +28,13 @@ public class UserRouter {
 		return RouterFunctions
 			.route()
 		    .GET(pathOne, RequestPredicates.accept(MediaType.APPLICATION_JSON), handler::findById) 
-		    .GET(path, RequestPredicates.accept(MediaType.APPLICATION_JSON), handler::findAll) 
+		    .GET(path, RequestPredicates.accept(MediaType.APPLICATION_JSON), handler::findPageable) 
 		    
 		    .POST(path, handler::save) 	
 		    .DELETE(pathOne, handler::deleteById)
 		    
 		    .POST(pathExample, handler::findAllExample)
-		    .POST(pathOneExample, handler::findAllExample)
+		    .POST(pathOneExample, handler::findOneExample)
 		    //.add(otherRoute) 
 		    .build();
 	}

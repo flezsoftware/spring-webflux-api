@@ -23,6 +23,14 @@ public class ReactiveApplication {
 //		client.testClient();
 		
 		UserGeneratedWebClient clientg = new UserGeneratedWebClient("http://localhost:8080", "/user");
+		
+		
+		User toFind = new User();
+		toFind.setName("Imie");
+		toFind.setSurname("Nazwisko");
+		toFind.setEmail("email@email.com");	
+		
+		
 		User object = new User();
 		object.setName("Imie");
 		object.setSurname("Nazwisko");
@@ -45,17 +53,12 @@ public class ReactiveApplication {
 		
 		object = clientg.findOneExample(object);
 		System.out.println("findOne(Example<s>) " + object.getId());
-		
-		object.setId(null);
-		object.setCreatedDate(null);
-		object.setUpdatedDate(null);
-		
-		
-		lst =  clientg.getAllExample(object).collectList().block();
+			
+		lst =  clientg.getAllExample(toFind).collectList().block();
 		System.out.println("findAll(Example<s>) size " + lst.size());		
 		
-		clientg.delete(object.getId());
-		System.out.println("delete " + object.getId());
+//		clientg.delete(object.getId());
+//		System.out.println("delete " + object.getId());
 
 		lst =  clientg.getAll().collectList().block();
 		System.out.println("findAll() size " + lst.size());
