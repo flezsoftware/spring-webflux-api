@@ -22,6 +22,7 @@ public class User extends Auditable {
 	private Double numberd;
 	private Boolean bool;
 	private LocalDate date;
+	private User parent;
 	
 	@Override
 	public boolean equals(Object obj) {

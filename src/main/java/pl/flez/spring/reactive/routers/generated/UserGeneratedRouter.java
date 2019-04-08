@@ -1,7 +1,6 @@
 package pl.flez.spring.reactive.routers.generated;
 
 import org.bson.types.ObjectId;
-import org.springframework.context.annotation.Configuration;
 
 import pl.flez.spring.reactive.data.User;
 import pl.flez.spring.reactive.handlers.generated.UserGeneratedHandler;

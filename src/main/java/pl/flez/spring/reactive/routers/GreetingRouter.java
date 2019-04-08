@@ -9,7 +9,6 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import pl.flez.spring.reactive.handlers.GreetingHandler;
-import pl.flez.spring.reactive.handlers.UserHandler;
 
 @Configuration
 public class GreetingRouter {

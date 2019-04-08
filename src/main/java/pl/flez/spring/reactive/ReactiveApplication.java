@@ -2,17 +2,13 @@ package pl.flez.spring.reactive;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
-import pl.flez.spring.reactive.client.UserWebClient;
 import pl.flez.spring.reactive.client.generated.UserGeneratedWebClient;
 import pl.flez.spring.reactive.data.User;
-import reactor.core.publisher.Flux;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 
 @SpringBootApplication
 @EnableMongoAuditing
@@ -36,7 +32,7 @@ public class ReactiveApplication {
 		toFind.setNumberd(Double.valueOf(i));
 		toFind.setDate(LocalDate.now().plusDays(i));
 		toFind.setBool((i<5));
-		
+			
 		User object = new User();
 		object.setName("Im"+i);
 		object.setSurname("Na"+i);

@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import pl.flez.spring.reactive.data.User;
-import pl.flez.spring.reactive.routers.UserRouter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

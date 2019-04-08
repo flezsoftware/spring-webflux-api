@@ -2,7 +2,6 @@ package pl.flez.spring.reactive.services;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Service;
 
 import pl.flez.spring.reactive.data.User;
