@@ -7,9 +7,12 @@ import org.springframework.stereotype.Component;
 import pl.flez.spring.reactive.data.User;
 import pl.flez.spring.reactive.handlers.canon.SpringMongoWebFluxAutoHandler;
 import pl.flez.spring.reactive.repositories.UserRepository;
-@Component
+//@Component
 public class UserGeneratedHandler extends SpringMongoWebFluxAutoHandler<User,ObjectId> {
+	
 	public UserGeneratedHandler(UserRepository repository) {
 		super(repository,User.class);
 	}
+	
+	
 }

@@ -41,6 +41,9 @@ public class SpringMongoWebFluxAutoWebClientTest {
 		.expectStatus().isOk().expectBody(User.class).returnResult().getResponseBody();		
 		assertEquals(object.getName(), returnResult.getName());
 		
+//		webTestClient.post().uri(path).body(BodyInserters.fromObject(object)).exchange()
+//				.expectStatus().isOk().expectBody().jsonPath("$.id").isEqualTo(object.getName())
+		
 		// GET /{id}
 		webTestClient.get().uri(MessageFormat.format(pathOne, new Object[]{returnResult.getId()})).accept(MediaType.APPLICATION_JSON).exchange()
 		.expectStatus().isOk().expectBody(User.class).isEqualTo(returnResult);

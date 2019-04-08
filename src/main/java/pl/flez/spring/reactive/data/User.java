@@ -1,5 +1,7 @@
 package pl.flez.spring.reactive.data;
 
+import java.time.LocalDate;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +18,11 @@ public class User extends Auditable {
 	private String name;
 	private String surname;
 	private String email;
-
+	private Integer number;
+	private Double numberd;
+	private Boolean bool;
+	private LocalDate date;
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

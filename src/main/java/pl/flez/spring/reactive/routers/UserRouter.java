@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import pl.flez.spring.reactive.handlers.UserHandler;
 
-@Configuration
+//@Configuration
 public class UserRouter {
 //	@Bean
 //	public RouterFunction<ServerResponse> routeUser(UserHandler hander) {

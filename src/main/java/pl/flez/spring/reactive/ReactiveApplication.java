@@ -1,5 +1,6 @@
 package pl.flez.spring.reactive;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +26,25 @@ public class ReactiveApplication {
 		UserGeneratedWebClient clientg = new UserGeneratedWebClient("http://localhost:8080", "/user");
 		
 		
+		for(int i =0; i < 0; i++)
+		{
 		User toFind = new User();
-		toFind.setName("Imie");
-		toFind.setSurname("Nazwisko");
-		toFind.setEmail("email@email.com");	
-		
+		toFind.setName("Im"+i);
+		toFind.setSurname("Na"+i);
+		toFind.setEmail("em"+i+"@email.com");;	
+		toFind.setNumber(i);
+		toFind.setNumberd(Double.valueOf(i));
+		toFind.setDate(LocalDate.now().plusDays(i));
+		toFind.setBool((i<5));
 		
 		User object = new User();
-		object.setName("Imie");
-		object.setSurname("Nazwisko");
-		object.setEmail("email@email.com");		
+		object.setName("Im"+i);
+		object.setSurname("Na"+i);
+		object.setEmail("em"+i+"@email.com");		
+		object.setNumber(i);
+		object.setNumberd(Double.valueOf(i));
+		object.setDate(LocalDate.now().plusDays(i));
+		toFind.setBool((i<5));
 		
 		System.out.println(object.getId());
 		
@@ -62,6 +72,7 @@ public class ReactiveApplication {
 
 		lst =  clientg.getAll().collectList().block();
 		System.out.println("findAll() size " + lst.size());
+		}
 	}
 
 }
