@@ -70,76 +70,14 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>pl.flez</groupId>
-			<artifactId>mongodb-query-plugin</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 	</dependencies>
-	<repositories>
-	 <repository>
-        <id>spring-libs-milestone</id>
-        <name>Spring Milestone Maven Repository</name>
-        <url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
-    </repository>
-	</repositories>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>pl.flez</groupId>
-				<artifactId>mongodb-query-plugin</artifactId>
-				<version>0.0.1</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>default-goal</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>			
-					<outputDirectory>target</outputDirectory>
-					<scan>pl.flez.spring.reactive.data</scan>
-				</configuration>
-			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>pl.flez</groupId>
-										<artifactId>
-											mongodb-query-plugin
-										</artifactId>
-										<versionRange>
-											[0.0.1,)
-										</versionRange>
-										<goals>
-											<goal>default-goal</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute></execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 </project>
