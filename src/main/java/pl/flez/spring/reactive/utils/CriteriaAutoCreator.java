@@ -1,4 +1,4 @@
-package pl.flez.spring.reactive.services;
+package pl.flez.spring.reactive.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,14 @@
 package pl.flez.spring.reactive.controllers.canon;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import pl.flez.spring.reactive.services.canon.SpringMongoWebFluxAutoService;
+import pl.flez.spring.reactive.utils.PageAndSortResolver;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
@@ -21,10 +29,9 @@ public abstract class SpringMongoWebFluxAutoController<T, ID> {
 
 	@GetMapping
 	public Flux<T> findAll(@RequestParam MultiValueMap<String, String> parameters) {
-		//service.createQuery(parameters);
 		return service.findAll(parameters);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Mono<ResponseEntity<T>> findById(@PathVariable("id") ID id){
 		return service.findById(id)

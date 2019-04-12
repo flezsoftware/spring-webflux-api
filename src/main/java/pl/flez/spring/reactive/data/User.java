@@ -1,13 +1,14 @@
 package pl.flez.spring.reactive.data;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.flez.spring.reactive.data.subdata.Person;
 
 @Getter
 @Setter
@@ -22,8 +23,8 @@ public class User extends Auditable {
 	private Double numberd;
 	private Boolean bool;
 	private LocalDate date;
-	private User parent;
-	
+	private Person parent;
+	private List<Person> persons;
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
