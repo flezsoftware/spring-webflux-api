@@ -44,29 +44,29 @@ public class ReactiveApplication {
 		
 		System.out.println(object.getId());
 		
-		object = clientg.post(object);
+		object = clientg.post(object).block();
 		System.out.println("save " + object.getId());
 		
 		
-		object = clientg.getById(object.getId());
+		object = clientg.findById(object.getId()).block();
 		System.out.println("findById " + object.getId());
 		
-		object = clientg.post(object);
+		object = clientg.post(object).block();
 		System.out.println("findOne " + object.getId());
 		
-		List<User> lst =  clientg.getAll().collectList().block();
+		List<User> lst =  clientg.findAll().collectList().block();
 		System.out.println("findAll() size " + lst.size());
 		
-		object = clientg.findOneExample(object);
+		object = clientg.findOne(object).block();
 		System.out.println("findOne(Example<s>) " + object.getId());
 			
-		lst =  clientg.getAllExample(toFind).collectList().block();
+		lst =  clientg.findAll(toFind).collectList().block();
 		System.out.println("findAll(Example<s>) size " + lst.size());		
 		
 //		clientg.delete(object.getId());
 //		System.out.println("delete " + object.getId());
 
-		lst =  clientg.getAll().collectList().block();
+		lst =  clientg.findAll().collectList().block();
 		System.out.println("findAll() size " + lst.size());
 		}
 	}
